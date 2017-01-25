@@ -23,4 +23,12 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
   
+  before_action :logged_in_user, only: [:edit]
+  def edit
+    @user = User.new
+  end
+  
+  def update
+  end
+  
 end
