@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+   before_action :logged_in_user, only: [:edit, :update]
   def show # 追加
    @user = User.find(params[:id])
   end
@@ -23,12 +24,24 @@ class UsersController < ApplicationController
                                  :password_confirmation)
   end
   
-  before_action :logged_in_user, only: [:edit]
   def edit
-    @user = User.new
+    @user = User.find(params[:id])
+    if current user !=@user
+      redirect_to root_path
+    end
   end
   
   def update
+    @user = User.find(params[:id])
+    if current user !=@user
+      redirect_to root_path
+    end
+    if(@user.update(user_profile))
+      redirect_to :show, notice:"save succeed"
+    else
+      flash.now[:alert] = "update failed"
+      render :edit
+    end
   end
   
 end
