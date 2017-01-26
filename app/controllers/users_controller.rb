@@ -16,32 +16,38 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
-
-  private
-
-  def user_params
-    params.require(:user).permit(:name, :email, :profile, :area, :password,
-                                 :password_confirmation)
-  end
-  
+ 
   def edit
     @user = User.find(params[:id])
-    if (current user !=@user)
+    if (current_user != @user)
       redirect_to root_path
     end
   end
   
   def update
     @user = User.find(params[:id])
-    if (current user !=@user)
+    if (current_user !=@user)
       redirect_to root_path
     end
     if(@user.update(user_profile))
-      redirect_to :show, notice:"save succeed"
+      redirect_to user_path(@user.id), notice:"save succeed"
     else
       flash.now[:alert] = "update failed"
       render :edit
     end
   end
   
+  private
+
+  def user_params
+    params.require(:user).permit(:name, :email, :profile, :area, :password,
+                                 :password_confirmation)
+  end
+
+  def user_profile
+    params.require(:user).permit(:name, :email, :profile, :area, :password,
+                                 :password_confirmation)
+  end
+
+ 
 end
