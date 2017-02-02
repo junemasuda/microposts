@@ -40,6 +40,15 @@ class UsersController < ApplicationController
     end
   end
   
+  # http://servername/users/1/followings
+  def followings
+    @user = User.find(params[:id])
+    @f_users = @user.following_users
+  end
+  
+  def followers
+  end
+  
   private
 
   def user_params

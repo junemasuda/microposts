@@ -12,7 +12,12 @@ Rails.application.routes.draw do
   put    'users/:id/edit', to: 'users#update'
   delete 'users/:id/edit', to: 'users#destroy'
   
-  resources :users
+  resources :users do
+    member do
+      get 'followings'
+      get 'followers'
+    end
+  end
 
  resources :microposts
  
