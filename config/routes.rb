@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
 
-  resources :relationships, only: [:create, :destroy]
-
+  
   get    'users/:id/edit', to: 'users#edit'
   patch  'users/:id/edit', to: 'users#update'
   put    'users/:id/edit', to: 'users#update'
@@ -16,4 +15,7 @@ Rails.application.routes.draw do
   resources :users
 
  resources :microposts
+ 
+ resources :relationships, only: [:create, :destroy]
+
 end
