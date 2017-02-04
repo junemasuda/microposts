@@ -4,8 +4,6 @@ Rails.application.routes.draw do
   get    'login' , to: 'sessions#new'
   post   'login' , to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
-
-
   
   get    'users/:id/edit', to: 'users#edit'
   patch  'users/:id/edit', to: 'users#update'
@@ -20,7 +18,13 @@ Rails.application.routes.draw do
     end
   end
 
- resources :microposts
+ resources :microposts do
+   member do
+     get 'favorite'
+    end
+  end
+  
+   
  
  resources :relationships, only: [:create, :destroy]
 
