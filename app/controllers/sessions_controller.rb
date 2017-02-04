@@ -14,7 +14,10 @@ class SessionsController < ApplicationController
     end
   end
   
-  
+  def favorite
+    session[:user_id] = nil
+    redirect_to root_path
+  end
 
   def destroy
     session[:user_id] = nil

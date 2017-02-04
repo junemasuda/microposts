@@ -6,6 +6,11 @@ class RelationshipsController < ApplicationController
     current_user.follow(@user)
   end
 
+  def favorite
+    @user = current_user.favorite_relationships.find(params[:id]).followed
+    current_user.unfollow(@user)
+  end
+    
   def destroy
     @user = current_user.following_relationships.find(params[:id]).followed
     current_user.unfollow(@user)

@@ -6,7 +6,7 @@ class CreateRelationships < ActiveRecord::Migration
 
       t.timestamps null: false
 
-      t.index [:follower_id, :followed_id], unique: true # この行を追加
+      t.index [:follower_id, :followed_id, :favorite_id], unique: true # この行を追加
     end
   end
 end

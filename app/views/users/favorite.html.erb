@@ -1,0 +1,6 @@
+<%# @f_users %>
+favorite list<br>
+<% @f_users.each do |user| %>
+   <p><%= gravatar_for(user, size:30) %></p>
+    <p><%= link_to user.name, user %></p>
+<% end %>

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:edit, :update]
+  before_action :logged_in_user, only: [:edit, :update, :favorite]
   
   def show
     @user = User.find(params[:id])
@@ -49,6 +49,14 @@ class UsersController < ApplicationController
   def followers
     @user = User.find(params[:id])
     @f_users = @user.follower_users
+  end
+  
+  def favorite
+    @micropost = current_user.microposts.find_by(id: params[:id])
+    return redirect_to root_url if @micropost.nil?
+    @micropost.favorite
+    flash[:success] = "Favorited this microposts!"
+    redirect_to request.referrer || root_url
   end
   
   private
