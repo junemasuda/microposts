@@ -11,14 +11,6 @@ class MicropostsController < ApplicationController
       render 'static_pages/home'
     end
   end
-
-  def favorite
-  @micropost = current_user.microposts.find_by(id: params[:id])
-    return redirect_to root_url if @micropost.nil?
-    @micropost.save
-    flash[:success] = "Favorited this Microposts!"
-    redirect_to request.referrer || root_url
-  end
   
   def create
     @micropost = current_user.microposts.build(micropost_params)
