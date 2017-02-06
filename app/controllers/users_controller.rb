@@ -51,16 +51,6 @@ class UsersController < ApplicationController
     @f_users = @user.follower_users
   end
   
-  def favorite
-     @user_id = current_user.id
-    @microposts_id = Micropost.find(params[:id]).id
-    @favorite = Facorite.new(micropost_id: @micropost_id, user_id: @user_id)
-      if @micropost.save
-        redirect_to user_path(current_user)
-      end
-
-  end
-  
   private
 
   def user_params

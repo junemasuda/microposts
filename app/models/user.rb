@@ -7,8 +7,6 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   has_secure_password
   has_many :microposts
-  has_many :favorites
-  has_many :favorite_posts, through: :favorites, source: :micropost
   
   has_many :following_relationships, class_name:  "Relationship",
                                      foreign_key: "follower_id",
@@ -37,18 +35,6 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following_users.include?(other_user)
   end
-  
-  #投稿をお気に入りにする
-  def favorite(other_user)
-    favorite_relationships.find_or_create_by(favorite_id: other_user.id)
-  end
-
-  #お気に入りを解除する
-  def unfavorite(other_user)
-    favorite_relationship = favotite_relationships.find_by(favorite_id: other_user.id)
-    favorite_relationship.destroy if favorite_relationship
-  end
-
   
   def feed_items
     Micropost.where(user_id: following_user_ids + [self.id])
