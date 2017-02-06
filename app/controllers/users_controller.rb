@@ -52,11 +52,13 @@ class UsersController < ApplicationController
   end
   
   def favorite
-    @micropost = current_user.microposts.find_by(id: params[:id])
-    return redirect_to root_url if @micropost.nil?
-    @micropost.favorite
-    flash[:success] = "Favorited this microposts!"
-    redirect_to request.referrer || root_url
+     @user_id = current_user.id
+    @microposts_id = Micropost.find(params[:id]).id
+    @favorite = Facorite.new(micropost_id: @micropost_id, user_id: @user_id)
+      if @micropost.save
+        redirect_to user_path(current_user)
+      end
+
   end
   
   private

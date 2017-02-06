@@ -12,11 +12,10 @@ class MicropostsController < ApplicationController
     end
   end
 
-
   def favorite
   @micropost = current_user.microposts.find_by(id: params[:id])
     return redirect_to root_url if @micropost.nil?
-    @micropost.favorite
+    @micropost.save
     flash[:success] = "Favorited this Microposts!"
     redirect_to request.referrer || root_url
   end
@@ -43,6 +42,6 @@ class MicropostsController < ApplicationController
   
   private
   def micropost_params
-    params.require(:micropost).permit(:content)
+    params.permit(:microposts, :content, :favorite)
   end
 end
